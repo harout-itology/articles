@@ -35,7 +35,7 @@ class ArticleController extends Controller
     {
         Article::updateOrCreate(
             ['id' => $request->id],
-            ['title' => $request->title, 'body' => $request->body, 'user_id' => Auth()->user()->id]
+            ['title' => $request->title, 'body' => $request->body, 'user_id' => auth()->user()->id]
         );
         return response()->json(['success'=>'Article '.$request->title.' saved successfully.']);
     }
