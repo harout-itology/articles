@@ -10,7 +10,6 @@ class ArticleController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
@@ -29,8 +28,8 @@ class ArticleController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  App\Http\Requests\ArticleRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param ArticleRequest $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(ArticleRequest $request)
     {
@@ -41,11 +40,11 @@ class ArticleController extends Controller
         return response()->json(['success'=>'Article '.$request->title.' saved successfully.']);
     }
 
-     /**
+    /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Article $article
+     * @return \Illuminate\Http\JsonResponse
      */
     public function edit(Article $article)
     {
@@ -55,8 +54,9 @@ class ArticleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Article $article
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function destroy(Article $article)
     {

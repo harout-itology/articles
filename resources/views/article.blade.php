@@ -1,12 +1,5 @@
 @extends('layouts.app')
 
-@section('header')
-    <link  href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js" defer></script>
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js" defer></script>
-@endsection
-
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
@@ -18,7 +11,7 @@
                                 {{ __('Articles') }}
                             </div>
                             <div class="col-md-6 text-md-right">
-                                <a href="javascript:void(0)" class="btn btn-info btn-sm" id="create-new">Add New</a>
+                                <a href="javascript:void(0)" class="btn btn-primary btn-sm" id="create-new">Add New</a>
                             </div>
                         </div>
                     </div>
