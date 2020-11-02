@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ArticleRequest;
 use App\Article;
 
+
 class ArticleController extends Controller
 {
     /**
@@ -37,6 +38,7 @@ class ArticleController extends Controller
             ['id' => $request->id],
             ['title' => $request->title, 'body' => $request->body, 'user_id' => auth()->user()->id]
         );
+        setLogActivity($request);
         return response()->json(['success'=>'Article '.$request->title.' saved successfully.']);
     }
 
