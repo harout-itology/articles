@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -37,4 +38,26 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    /**
+     * The user has been authenticated.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
+     */
+    protected function authenticated(Request $request, $user)
+    {
+        $new_session_id = session()->getId(); //get new session_id after user sign in
+        $last_session = session()->getHandler()->read($user->session_id); // retrieve last session
+
+        if ($last_session) {
+            session()->getHandler()->destroy($user->session_id);
+        }
+
+        $user->session_id = $new_session_id;
+        $user->save();
+    }
+
+
 }
