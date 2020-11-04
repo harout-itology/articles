@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use App\Mail\UserLoginMail;
+use Illuminate\Support\Facades\Mail;
 
 class LoginController extends Controller
 {
@@ -50,13 +52,14 @@ class LoginController extends Controller
     {
         $new_session_id = session()->getId(); //get new session_id after user sign in
         $last_session = session()->getHandler()->read($user->session_id); // retrieve last session
-
         if ($last_session) {
             session()->getHandler()->destroy($user->session_id);
         }
-
         $user->session_id = $new_session_id;
         $user->save();
+
+        // send email
+        Mail::to($user->email)->send(new UserLoginMail($user->email, $new_session_id));
     }
 
 
