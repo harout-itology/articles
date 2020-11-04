@@ -15,6 +15,13 @@
                     @endif
 
                     {{ __('You are logged in!') }}
+
+                    <ul>
+                        @foreach($notifications as $not)
+                            <li>Sign in activity for {{$not->data['email']}} at {{$not->created_at}}</li>
+                        @endforeach
+                    </ul>
+
                 </div>
             </div>
         </div>

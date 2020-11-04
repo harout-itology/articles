@@ -37,7 +37,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-
     /**
      * Get the article for the user.
      *
@@ -46,5 +45,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function article()
     {
         return $this->hasMany(Article::class);
+    }
+
+    public function routeNotificationForTelegram()
+    {
+        return config('telegram.channel_id');
     }
 }

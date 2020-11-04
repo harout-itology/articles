@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use App\Mail\UserLoginMail;
 use Illuminate\Support\Facades\Mail;
+use App\Notifications\UserLoginNotification;
+
 
 class LoginController extends Controller
 {
@@ -60,6 +62,8 @@ class LoginController extends Controller
 
         // send email
         Mail::to($user->email)->send(new UserLoginMail($user->email, $new_session_id));
+        // send Notification
+        request()->user()->notify(new UserLoginNotification($user));
     }
 
 
