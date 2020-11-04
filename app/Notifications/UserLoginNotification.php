@@ -8,6 +8,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use TelegramNotifications\TelegramChannel;
 use TelegramNotifications\Messages\TelegramMessage;
+use Illuminate\Notifications\Messages\NexmoMessage;
 
 class UserLoginNotification extends Notification
 {
@@ -33,9 +34,27 @@ class UserLoginNotification extends Notification
      */
     public function via($notifiable)
     {
-        return [TelegramChannel::class, 'database'];
+        return [TelegramChannel::class, 'database', 'nexmo'];
     }
 
+    /**
+     * Get the Nexmo / SMS representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return NexmoMessage
+     */
+    public function toNexmo($notifiable)
+    {
+        return (new NexmoMessage)
+            ->content("Sign in activity catches for ".$this->user->email);
+    }
+
+    /**
+     * Get the Telegram / channel representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return TelegramMessage
+     */
     public function toTelegram($notifiable)
     {
         return (new TelegramMessage())

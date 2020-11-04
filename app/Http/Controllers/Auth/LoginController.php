@@ -6,9 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use App\Mail\UserLoginMail;
-use Illuminate\Support\Facades\Mail;
-use App\Notifications\UserLoginNotification;
+use App\Jobs\ProcessNotificationJob;
+
 
 
 class LoginController extends Controller
@@ -60,10 +59,7 @@ class LoginController extends Controller
         $user->session_id = $new_session_id;
         $user->save();
 
-        // send email
-        Mail::to($user->email)->send(new UserLoginMail($user->email, $new_session_id));
-        // send Notification
-        request()->user()->notify(new UserLoginNotification($user));
+        ProcessNotificationJob::dispatch($user);
     }
 
 
