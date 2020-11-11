@@ -31,6 +31,6 @@ Route::group(['middleware' => ['auth', 'verified']], function() {
     //display edit article form
     Route::get('articles/{article}/edit','ArticleController@edit')->name('articles.edit');
     //delete a article
-    Route::delete('articles/{article}','ArticleController@destroy')->name('articles.delete');
+    Route::delete('articles/{article}','ArticleController@destroy')->middleware('can:destroy,article')->name('articles.delete');
 
 });
